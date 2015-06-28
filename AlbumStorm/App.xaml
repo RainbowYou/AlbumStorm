@@ -1,0 +1,17 @@
+﻿<Application x:Class="AlbumStorm.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/AlbumStorm;component/Resources/Styles/ButtonStyle.xaml"/>
+                <ResourceDictionary Source="/AlbumStorm;component/Resources/Styles/Vista.xaml"/>
+                <ResourceDictionary Source="/AlbumStorm;component/Resources/Styles/ButtonStyle2.xaml"/>
+                <ResourceDictionary Source="/AlbumStorm;component/Resources/Styles/BackgroundResource.xaml"/>
+                <ResourceDictionary Source="/AlbumStorm;component/Resources/Styles/TabRes.xaml"/>
+                <ResourceDictionary Source="/AlbumStorm;component/Resources/Datas/AlbumSetDataTemplate.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

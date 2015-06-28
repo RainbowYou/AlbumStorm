@@ -1,0 +1,111 @@
+﻿<Window x:Class="AlbumStorm.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="700" Width="1000"
+        WindowStyle="None" ResizeMode="NoResize"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown">
+    <Window.Background>
+        <!--Application background image-->
+        <ImageBrush ImageSource="Images/bg.png"/>
+    </Window.Background>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition />
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <!--First row just takes that place, it has nothing to do-->
+        
+        <Border Grid.Row="1" BorderBrush="Silver" BorderThickness="1">
+            <Grid >
+                <!--Content of second row-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" >
+                    <Button Name="backButton" Style="{StaticResource AnimationButton}" Background="Green"
+                            Margin="20,10" Width="70" Content="返 回" HorizontalAlignment="Left" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
+                    <TextBlock Text="当前用户: " Margin="0,10" VerticalAlignment="Center"/>
+                    <TextBlock Text="Administrator" Margin="10,10" VerticalAlignment="Center"/>
+                    <Button x:Name="exitButton" Style="{StaticResource AnimationButton}" Background="Red"
+                            Width="70" Margin="20,10" Click="exitButton_Click" Content="退 出"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+        
+        <TabControl Grid.Row="2" x:Name="AlbumTabControl">
+            <!--Content of third row, including main usages-->
+            <TabItem Header="家庭" x:Name="familyTabItem">    
+                <ScrollViewer>
+                    <WrapPanel x:Name="familyWrapPanel">
+                        <WrapPanel.Background>
+                            <!--Here can add an animation to change the background automatically-->
+                            <ImageBrush ImageSource="Images/Familys/family1.jpg" Opacity="0.7" Stretch="UniformToFill"/>
+                        </WrapPanel.Background>
+                    </WrapPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="旅游" x:Name="travelTabItem">
+                <ScrollViewer>
+                    <WrapPanel x:Name="travelWrapPanel">
+                        <WrapPanel.Background>
+                            <ImageBrush ImageSource="Images/Travels/travel1.jpg" Opacity="0.7" Stretch="UniformToFill"/>
+                        </WrapPanel.Background>
+                    </WrapPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="风景" x:Name="sceneTabItem">
+                <ScrollViewer>
+                    <WrapPanel x:Name="sceneWrapPanel">
+                        <WrapPanel.Background>
+                            <ImageBrush ImageSource="Images/Scenes/scene2.jpg" Opacity="0.7" Stretch="UniformToFill"/>
+                        </WrapPanel.Background>
+                    </WrapPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="校园" x:Name="campusTabItem">
+                <ScrollViewer>
+                    <WrapPanel x:Name="campusWrapPanel">
+                        <WrapPanel.Background>
+                            <ImageBrush ImageSource="Images/Campus/BUAA7.png" Opacity="0.5" Stretch="UniformToFill"/>
+                        </WrapPanel.Background>
+                    </WrapPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="个人" x:Name="personalTabItem">
+                <ScrollViewer>
+                    <WrapPanel x:Name="personalWrapPanel">
+                        <WrapPanel.Background>
+                            <ImageBrush ImageSource="Images/Personal/personal1.jpg" Opacity="1.0" Stretch="UniformToFill"/>
+                        </WrapPanel.Background>
+                    </WrapPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+
+        <Grid Grid.Row="3" Background="{StaticResource BackgroundBrush2}">
+            <!--Fourth row of main window, including some buttons-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.Column="0">
+                <Button Name="addAlbumButton" Style="{StaticResource AnimationButton}" Background="#ff4ecd00"
+                        Margin="30,0,50,0" Content="添加相册" Click="addAlbumButton_Click"/>
+                <Button Name="deleteAlbumButton" Style="{StaticResource AnimationButton}" Background="#ff4ecd00"
+                        Margin="10" Content="删除相册"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
+                <Button Name="importPictureButton" Style="{StaticResource AnimationButton}" Background="Blue" 
+                        Margin="10,0,50,0" Content="导入照片" Click="importPictureButton_Click"/>
+                <Button Name="enterAlbumButton" Style="{StaticResource AnimationButton}" Background="Blue" 
+                        Margin="10,0,30,0" Content="进入相册" Click="enterAlbumButton_Click"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
