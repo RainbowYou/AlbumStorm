@@ -8,7 +8,7 @@
         <!--Application background image-->
         <ImageBrush ImageSource="Images/bg.png"/>
     </Window.Background>
-    <Grid>
+    <Grid x:Name="mainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition Height="50"/>
@@ -27,7 +27,10 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" >
                     <Button Name="backButton" Style="{StaticResource AnimationButton}" Background="Green"
-                            Margin="20,10" Width="70" Content="返 回" HorizontalAlignment="Left" />
+                            Margin="20,10" Width="70" Content="返 回" 
+                            HorizontalAlignment="Left" 
+                            IsEnabled="False"
+                            Click="backButton_Click"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
                     <TextBlock Text="当前用户: " Margin="0,10" VerticalAlignment="Center"/>
@@ -87,6 +90,7 @@
                 </ScrollViewer>
             </TabItem>
         </TabControl>
+        
 
         <Grid Grid.Row="3" Background="{StaticResource BackgroundBrush2}">
             <!--Fourth row of main window, including some buttons-->

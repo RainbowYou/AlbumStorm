@@ -22,9 +22,13 @@ namespace AlbumStorm.Classes
         }
         private List<Image> _PictureList;
 
-        public bool IsSelected { get; set; }
+        public string BelongsTo { get; set; }
 
-        //public Image BackgroundImage { get; set; }
+        //Storage selected pictures' path 
+        //public List<string> PicturePathList { get; set; }
+        public List<string> PicturePathList = new List<string>();
+
+        public bool IsSelected { get; set; }
 
         public AlbumUserControl()
         {
