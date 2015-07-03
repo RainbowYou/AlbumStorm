@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{23364371-B0EE-4A05-8702-D5CFAEAE4A7D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AlbumStorm</RootNamespace>
+    <AssemblyName>AlbumStorm</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="MyControls\ImageButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MyControls\MyTabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MyControls\MyTabItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MyControls\Picture.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MyControls\PictureViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\GetMessageDialogBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Datas\AlbumSetDataTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\BackgroundResource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MyControls\AlbumSet.cs" />
+    <Compile Include="MyControls\AlbumUserControl.cs" />
+    <Compile Include="MyControls\ImageButton.cs" />
+    <Compile Include="MyControls\MyTabControl.cs" />
+    <Compile Include="MyControls\MyTabItem.cs" />
+    <Compile Include="MyControls\Picture.xaml.cs">
+      <DependentUpon>Picture.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MyControls\PictureViewer.xaml.cs">
+      <DependentUpon>PictureViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\GetMessageDialogBox.xaml.cs">
+      <DependentUpon>GetMessageDialogBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\TextValidationRule.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Resources\Styles\ButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\ScrollBarStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\ScrollBarThumbStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles\ScrollViewerStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\bg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ControlLib.csproj" />
+    <Resource Include="Images\pressed_min.png" />
+    <Resource Include="Images\normal_min.png" />
+    <Resource Include="Images\hover_min.png" />
+    <Resource Include="Images\normal_close.png" />
+    <Resource Include="Images\pressed_close.png" />
+    <Resource Include="Images\hover_close.png" />
+    <Resource Include="Dialogs\Images\pressed_red.png" />
+    <Resource Include="Dialogs\Images\hover_red.png" />
+    <Resource Include="Dialogs\Images\pressed_green.png" />
+    <Resource Include="Dialogs\Images\hover_green.png" />
+    <Resource Include="Dialogs\Images\hover_cross.png" />
+    <Resource Include="Dialogs\Images\pressed_cross.png" />
+    <Resource Include="Images\Travels\hover_t.png" />
+    <Resource Include="Images\Travels\normal_t.png" />
+    <Resource Include="Images\Travels\selected_t.png" />
+    <Resource Include="Images\Scenes\hover_s.png" />
+    <Resource Include="Images\Scenes\normal_s.png" />
+    <Resource Include="Images\Scenes\selected_s.png" />
+    <Resource Include="Images\Personal\hover_p.png" />
+    <Resource Include="Images\Personal\normal_p.png" />
+    <Resource Include="Images\Personal\selected_p.png" />
+    <Resource Include="Images\Familys\hover_f.png" />
+    <Resource Include="Images\Familys\normal_f.png" />
+    <Resource Include="Images\Familys\selected_f.png" />
+    <Resource Include="Images\Campus\hover_c.png" />
+    <Resource Include="Images\Campus\normal_c.png" />
+    <Resource Include="Images\Campus\selected_c.png" />
+    <Resource Include="Images\Familys\Family_logo.png" />
+    <Resource Include="Images\Personal\personal2.jpeg" />
+    <Resource Include="Images\Personal\personal3.jpeg" />
+    <Resource Include="Images\Personal\personal4.jpg" />
+    <Resource Include="Images\Personal\personal5.jpg" />
+    <Resource Include="Images\Personal\personal1.jpg" />
+    <Resource Include="Images\Travels\travel1.jpg" />
+    <Resource Include="Images\Travels\travel2.jpg" />
+    <Resource Include="Images\Travels\travel3.jpg" />
+    <Resource Include="Images\Travels\travel4.jpg" />
+    <Resource Include="Images\Travels\travel5.jpg" />
+    <Resource Include="Images\Scenes\scene2.jpg" />
+    <Resource Include="Images\Scenes\scene3.jpg" />
+    <Resource Include="Images\Scenes\scene4.jpg" />
+    <Resource Include="Images\Scenes\scene5.jpg" />
+    <Resource Include="Images\Scenes\scene1.jpg" />
+    <Resource Include="Images\Campus\BUAA3.png" />
+    <Resource Include="Images\Campus\BUAA4.png" />
+    <Resource Include="Images\Campus\BUAA5.png" />
+    <Resource Include="Images\Campus\BUAA6.png" />
+    <Resource Include="Images\Campus\BUAA1.png" />
+    <Resource Include="Images\Campus\BUAA2.png" />
+    <Resource Include="Images\Familys\family1.jpg" />
+    <Resource Include="Images\Familys\family2.jpg" />
+    <Resource Include="Images\Familys\family3.jpg" />
+    <Resource Include="Images\Familys\Naruto.jpg" />
+    <Resource Include="Images\Familys\小新.jpg" />
+    <Resource Include="Dialogs\Images\dialogBg.png" />
+    <Resource Include="Dialogs\Images\crossButton.png" />
+    <Resource Include="Dialogs\Images\greenButton.png" />
+    <Resource Include="Dialogs\Images\redButton.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

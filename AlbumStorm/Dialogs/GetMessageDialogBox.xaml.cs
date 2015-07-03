@@ -50,6 +50,15 @@ namespace AlbumStorm.Dialogs
             InitializeComponent();
 
             IsInputValid = false;
+
+            //RelativeSource rs = new RelativeSource();
+            //rs.Mode = RelativeSourceMode.Self;
+            //Binding binding = new Binding("Text") { RelativeSource = rs };
+            //binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+            //TextValidationRule tvr = new TextValidationRule();
+            //tvr.ValidatesOnTargetUpdated = true;
+            //binding.ValidationRules.Add(tvr);
+            //this.albumNameTextBox.SetBinding(TextBox.TextProperty, binding);
         }
 
         private void closeButto_Click(object sender, RoutedEventArgs e)

@@ -45,10 +45,6 @@ Temporary Items
 *.sln
 *.v12.suo
 AlbumStorm/obj/
-AlbumStorm/Properties/
-AlbumStorm/Resources/
-AlbumStorm/*.csproj
-AlbumStorm/App.config
 AlbumStorm/bin/
 
 

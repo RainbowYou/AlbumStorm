@@ -4,17 +4,14 @@
         Title="GetMessageDialogBox" Height="277" Width="424"
         WindowStyle="None"
         ResizeMode="NoResize"
+        BorderBrush="#312430"
+        BorderThickness="1"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         xmlns:local="clr-namespace:AlbumStorm.Dialogs"
+        xmlns:MyControl="clr-namespace:AlbumStorm.MyControls"
         >
-    <!--<Window.Background>
-        <ImageBrush ImageSource="Images/dialogBg.png"/>
-    </Window.Background>-->
     
     <Window.Resources>
-        <ImageBrush x:Key="closeButtonBrush" ImageSource="Images/crossButton.png"/>
-        <ImageBrush x:Key="OKButtonBrush" ImageSource="Images/greenButton.png"/>
-        <ImageBrush x:Key="cancelButtonBrush" ImageSource="Images/redButton.png"/>
         <ImageBrush x:Key="backgroundBrush" ImageSource="Images/dialogBg.png"/>
         <Style TargetType="{x:Type TextBlock}">
             <Setter Property="FontSize" Value="20"/>
@@ -29,8 +26,7 @@
             <Setter Property="Height" Value="32"/>
             <Setter Property="VerticalAlignment" Value="Bottom"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
-         </Style>
-
+        </Style>
     </Window.Resources>
     
     <Grid>
@@ -49,16 +45,28 @@
             <ImageBrush ImageSource="Images/dialogBg.png"/>
         </Grid.Background>
         
-        <Button x:Name="closeButto" Grid.Column="1" 
-                Width="31" Height="31"
-                Background="{StaticResource closeButtonBrush}" 
-                Click="closeButto_Click" Margin="164,18,13,8"/>
+        <MyControl:ImageButton 
+                x:Name="closeButto" 
+                Grid.Column="1" 
+                Width="31" Height="31"               
+                Click="closeButto_Click" Margin="173,10,7,16" >
+            <MyControl:ImageButton.MyNormalBrush>
+                <ImageBrush ImageSource="Images/crossButton.png"/>
+            </MyControl:ImageButton.MyNormalBrush>
+            <MyControl:ImageButton.MyHoverBrush>
+                <ImageBrush ImageSource="Images/hover_cross.png"/>
+            </MyControl:ImageButton.MyHoverBrush>
+            <MyControl:ImageButton.MyPressedBrush>
+                <ImageBrush ImageSource="Images/pressed_cross.png"/>
+            </MyControl:ImageButton.MyPressedBrush>
+        </MyControl:ImageButton>
         <TextBlock Grid.Row="1" Grid.Column="0" Margin="60,0,0,0" Text="相 册 名："/> 
         <TextBox Grid.Row="1" Grid.Column="1" x:Name="albumNameTextBox">
             <!--<TextBox.Text>
-                <Binding  UpdateSourceTrigger="LostFocus">
+                <Binding Path="Text" RelativeSource="{RelativeSource Self}"
+                         UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
-                        <local:TextValidationRule/>
+                        <local:TextValidationRule ValidatesOnTargetUpdated="True"/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox.Text>-->
@@ -67,16 +75,37 @@
         <TextBlock Grid.Row="2" Grid.Column="0" Text="创 建 时 间："/>
         <TextBox Grid.Row="2" Grid.Column="1" x:Name="createTimeTextBox"/>
         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
-            <Button x:Name="OKButton" 
-                    Width="66" Height="35"
-                    Background="{StaticResource OKButtonBrush}" 
-                    Content="OK" Margin="20,13"
-                    Click="OKButton_Click"/>
-            <Button x:Name="cancelButton"
+            <MyControl:ImageButton x:Name="OKButton" 
+                    Width="66" Height="35" 
+                    Margin="20,13"
+                    IsDefault="True"
+                    Click="OKButton_Click">
+                <MyControl:ImageButton.MyNormalBrush>
+                    <ImageBrush ImageSource="Images/greenButton.png"/>
+                </MyControl:ImageButton.MyNormalBrush>
+                <MyControl:ImageButton.MyHoverBrush>
+                    <ImageBrush ImageSource="Images/hover_green.png"/>
+                </MyControl:ImageButton.MyHoverBrush>
+                <MyControl:ImageButton.MyPressedBrush>
+                    <ImageBrush ImageSource="Images/pressed_green.png"/>
+                </MyControl:ImageButton.MyPressedBrush>
+            </MyControl:ImageButton>
+
+            <MyControl:ImageButton x:Name="cancelButton"
                     Width="71" Height="40"
-                    Background="{StaticResource cancelButtonBrush}"
-                    Content="Cancel" Margin="10"
-                    Click="cancelButton_Click"/>
+                    Margin="10"
+                    IsCancel="True"
+                    Click="cancelButton_Click">
+                <MyControl:ImageButton.MyNormalBrush>
+                    <ImageBrush ImageSource="Images/redButton.png"/>
+                </MyControl:ImageButton.MyNormalBrush>
+                <MyControl:ImageButton.MyHoverBrush>
+                    <ImageBrush ImageSource="Images/hover_red.png"/>
+                </MyControl:ImageButton.MyHoverBrush>
+                <MyControl:ImageButton.MyPressedBrush>
+                    <ImageBrush ImageSource="Images/pressed_red.png"/>
+                </MyControl:ImageButton.MyPressedBrush>
+            </MyControl:ImageButton>
         </StackPanel>
     </Grid>
 </Window>

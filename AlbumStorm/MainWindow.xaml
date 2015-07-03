@@ -3,9 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="700" Width="1000"
         WindowStyle="None" ResizeMode="NoResize"
-        MouseLeftButtonDown="Window_MouseLeftButtonDown">
+        BorderBrush="#027bb8" BorderThickness="0,0,0,3"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        xmlns:local="clr-namespace:AlbumStorm.MyControls">
     <Window.Background>
-        <!--Application background image-->
         <ImageBrush ImageSource="Images/bg.png"/>
     </Window.Background>
     <Grid x:Name="mainGrid">
@@ -13,17 +14,51 @@
             <RowDefinition Height="80"/>
             <RowDefinition Height="50"/>
             <RowDefinition />
-            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-
-        <!--First row just takes that place, it has nothing to do-->
+        
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="5*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" HorizontalAlignment="Right" Orientation="Horizontal">
+                <local:ImageButton x:Name="minButton" Click="minButton_Click" Width="27" Height="26" VerticalAlignment="Top">
+                    <local:ImageButton.MyNormalBrush>
+                        <ImageBrush ImageSource="Images/normal_min.png"/>
+                    </local:ImageButton.MyNormalBrush>
+                    <local:ImageButton.MyHoverBrush>
+                        <ImageBrush ImageSource="Images/hover_min.png"/>
+                    </local:ImageButton.MyHoverBrush>
+                    <local:ImageButton.MyPressedBrush>
+                        <ImageBrush ImageSource="Images/pressed_min.png"/>
+                    </local:ImageButton.MyPressedBrush>
+                </local:ImageButton>
+                <local:ImageButton x:Name="closeButton" Click="closeButton_Click" Width="27" Height="26" VerticalAlignment="Top">
+                    <local:ImageButton.MyNormalBrush>
+                        <ImageBrush ImageSource="Images/normal_close.png"/>
+                    </local:ImageButton.MyNormalBrush>
+                    <local:ImageButton.MyHoverBrush>
+                        <ImageBrush ImageSource="Images/hover_close.png"/>
+                    </local:ImageButton.MyHoverBrush>
+                    <local:ImageButton.MyPressedBrush>
+                        <ImageBrush ImageSource="Images/pressed_close.png"/>
+                    </local:ImageButton.MyPressedBrush>
+                </local:ImageButton>
+            </StackPanel>
+            <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal">
+                <TextBlock Text="当前用户: " Margin="0" VerticalAlignment="Bottom" FontSize="15"/>
+                <TextBlock Text="Administrator" Margin="10,0" VerticalAlignment="Bottom" FontSize="15"/>
+            </StackPanel>
+        </Grid>
+        
         
         <Border Grid.Row="1" BorderBrush="Silver" BorderThickness="1">
             <Grid >
-                <!--Content of second row-->
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" >
                     <Button Name="backButton" Style="{StaticResource AnimationButton}" Background="Green"
@@ -32,84 +67,322 @@
                             IsEnabled="False"
                             Click="backButton_Click"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
-                    <TextBlock Text="当前用户: " Margin="0,10" VerticalAlignment="Center"/>
-                    <TextBlock Text="Administrator" Margin="10,10" VerticalAlignment="Center"/>
+                
+                <Grid Grid.Column="1" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Column="0">
+                        <Button Name="addAlbumButton" Style="{StaticResource AnimationButton}" Background="#ff4ecd00"
+                        Margin="30,0" Content="添加相册" Click="addAlbumButton_Click"/>
+                        <Button Name="deleteAlbumButton" Style="{StaticResource AnimationButton}" Background="#ff4ecd00"
+                        Margin="10" Content="删除相册"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
+                        <Button Name="importPictureButton" Style="{StaticResource AnimationButton}" Background="Blue" 
+                        Margin="0,0,50,0" Content="导入照片" Click="importPictureButton_Click"/>
+                        <Button Name="enterAlbumButton" Style="{StaticResource AnimationButton}" Background="Blue" 
+                        Margin="10,0,30,0" Content="进入相册" Click="enterAlbumButton_Click"/>
+                    </StackPanel>
+                </Grid>
+                
+                <StackPanel Orientation="Horizontal" Grid.Column="3" HorizontalAlignment="Right">
                     <Button x:Name="exitButton" Style="{StaticResource AnimationButton}" Background="Red"
                             Width="70" Margin="20,10" Click="exitButton_Click" Content="退 出"/>
                 </StackPanel>
             </Grid>
         </Border>
         
-        <TabControl Grid.Row="2" x:Name="AlbumTabControl">
-            <!--Content of third row, including main usages-->
-            <TabItem Header="家庭" x:Name="familyTabItem">    
+        
+        <local:MyTabControl Grid.Row="2" x:Name="AlbumTabControl" TabStripPlacement="Left"> 
+            <local:MyTabItem  x:Name="familyTabItem" Width="70" Height="70" Margin="0,40,0,20">    
+                <local:MyTabItem.MyNormalBrush>
+                    <ImageBrush ImageSource="Images/Familys/normal_f.png"/>
+                </local:MyTabItem.MyNormalBrush>
+                <local:MyTabItem.MyMoverBrush>
+                    <ImageBrush ImageSource="Images/Familys/selected_f.png"/>
+                </local:MyTabItem.MyMoverBrush>
+                <local:MyTabItem.MyEnterBrush>
+                    <ImageBrush ImageSource="Images/Familys/hover_f.png"/>
+                </local:MyTabItem.MyEnterBrush>
                 <ScrollViewer>
                     <WrapPanel x:Name="familyWrapPanel">
                         <WrapPanel.Background>
-                            <!--Here can add an animation to change the background automatically-->
                             <ImageBrush ImageSource="Images/Familys/family1.jpg" Opacity="0.7" Stretch="UniformToFill"/>
-                        </WrapPanel.Background>
+                        </WrapPanel.Background> 
+                        <WrapPanel.Triggers>
+                            <EventTrigger RoutedEvent="Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Duration="0:0:30"
+                                                                       Storyboard.TargetName="familyWrapPanel"
+                                                                       Storyboard.TargetProperty="Background"
+                                                                       RepeatBehavior="Forever">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <ImageBrush ImageSource="Images/Familys/family1.jpg"/>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:30">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <ImageBrush ImageSource="Images/Familys/family2.jpg"/>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                            <DiscreteObjectKeyFrame KeyTime="0:01:0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <ImageBrush ImageSource="Images/Familys/family3.jpg"/>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                            <DiscreteObjectKeyFrame KeyTime="0:01:30">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <ImageBrush ImageSource="Images/Familys/Naruto.jpg"/>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                            <DiscreteObjectKeyFrame KeyTime="0:02:0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <ImageBrush ImageSource="Images/Familys/小新.jpg"/>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </WrapPanel.Triggers>
                     </WrapPanel>
                 </ScrollViewer>
-            </TabItem>
-            <TabItem Header="旅游" x:Name="travelTabItem">
+
+            </local:MyTabItem>
+
+            <local:MyTabItem  x:Name="travelTabItem" Width="70" Height="70" Margin="0,20">
+                <local:MyTabItem.MyNormalBrush>
+                    <ImageBrush ImageSource="Images/Travels/normal_t.png"/>
+                </local:MyTabItem.MyNormalBrush>
+                <local:MyTabItem.MyMoverBrush>
+                    <ImageBrush ImageSource="Images/Travels/selected_t.png"/>
+                </local:MyTabItem.MyMoverBrush>
+                <local:MyTabItem.MyEnterBrush>
+                    <ImageBrush ImageSource="Images/Travels/hover_t.png"/>
+                </local:MyTabItem.MyEnterBrush>
                 <ScrollViewer>
                     <WrapPanel x:Name="travelWrapPanel">
                         <WrapPanel.Background>
                             <ImageBrush ImageSource="Images/Travels/travel1.jpg" Opacity="0.7" Stretch="UniformToFill"/>
                         </WrapPanel.Background>
+                        <WrapPanel.Triggers>
+                            <EventTrigger RoutedEvent="Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Duration="0:0:30"
+                                                                       Storyboard.TargetName="travelWrapPanel"
+                                                                       Storyboard.TargetProperty="Background"
+                                                                       RepeatBehavior="Forever">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <ImageBrush ImageSource="Images/Travels/travel1.jpg"/>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:30">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <ImageBrush ImageSource="Images/Travels/travel2.jpg"/>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                            <DiscreteObjectKeyFrame KeyTime="0:1:0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <ImageBrush ImageSource="Images/Travels/travel3.jpg"/>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                            <DiscreteObjectKeyFrame KeyTime="0:1:30">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <ImageBrush ImageSource="Images/Travels/travel4.jpg"/>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                            <DiscreteObjectKeyFrame KeyTime="0:02:0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <ImageBrush ImageSource="Images/Travels/travel5.jpg"/>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </WrapPanel.Triggers>
                     </WrapPanel>
                 </ScrollViewer>
-            </TabItem>
-            <TabItem Header="风景" x:Name="sceneTabItem">
+            </local:MyTabItem>
+
+            <local:MyTabItem  x:Name="sceneTabItem" Width="70" Height="70" Margin="0,20">
+                <local:MyTabItem.MyNormalBrush>
+                    <ImageBrush ImageSource="Images/Scenes/normal_s.png"/>
+                </local:MyTabItem.MyNormalBrush>
+                <local:MyTabItem.MyMoverBrush>
+                    <ImageBrush ImageSource="Images/Scenes/selected_s.png"/>
+                </local:MyTabItem.MyMoverBrush>
+                <local:MyTabItem.MyEnterBrush>
+                    <ImageBrush ImageSource="Images/Scenes/hover_s.png"/>
+                </local:MyTabItem.MyEnterBrush>
                 <ScrollViewer>
                     <WrapPanel x:Name="sceneWrapPanel">
                         <WrapPanel.Background>
-                            <ImageBrush ImageSource="Images/Scenes/scene2.jpg" Opacity="0.7" Stretch="UniformToFill"/>
+                            <ImageBrush ImageSource="Images/Scenes/scene1.jpg" Opacity="0.7" Stretch="UniformToFill"/>
                         </WrapPanel.Background>
+                        <WrapPanel.Triggers>
+                            <EventTrigger RoutedEvent="Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Duration="0:0:30"
+                                                                       Storyboard.TargetName="sceneWrapPanel"
+                                                                       Storyboard.TargetProperty="Background"
+                                                                       RepeatBehavior="Forever">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <ImageBrush ImageSource="Images/Scenes/scene1.jpg"/>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:30">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <ImageBrush ImageSource="Images/Scenes/scene2.jpg"/>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                            <DiscreteObjectKeyFrame KeyTime="0:1:0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <ImageBrush ImageSource="Images/Scenes/scene3.jpg"/>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                            <DiscreteObjectKeyFrame KeyTime="0:1:30">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <ImageBrush ImageSource="Images/Scenes/scene4.jpg"/>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                            <DiscreteObjectKeyFrame KeyTime="0:02:0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <ImageBrush ImageSource="Images/Scenes/scene5.jpg"/>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </WrapPanel.Triggers>
                     </WrapPanel>
+                    
                 </ScrollViewer>
-            </TabItem>
-            <TabItem Header="校园" x:Name="campusTabItem">
+            </local:MyTabItem>
+
+            <local:MyTabItem  x:Name="campusTabItem" Width="70" Height="70" Margin="0,20">
+                <local:MyTabItem.MyNormalBrush>
+                    <ImageBrush ImageSource="Images/Campus/normal_c.png"/>
+                </local:MyTabItem.MyNormalBrush>
+                <local:MyTabItem.MyMoverBrush>
+                    <ImageBrush ImageSource="Images/Campus/selected_c.png"/>
+                </local:MyTabItem.MyMoverBrush>
+                <local:MyTabItem.MyEnterBrush>
+                    <ImageBrush ImageSource="Images/Campus/hover_c.png"/>
+                </local:MyTabItem.MyEnterBrush>
                 <ScrollViewer>
                     <WrapPanel x:Name="campusWrapPanel">
                         <WrapPanel.Background>
-                            <ImageBrush ImageSource="Images/Campus/BUAA7.png" Opacity="0.5" Stretch="UniformToFill"/>
+                            <ImageBrush ImageSource="Images/Campus/BUAA1.png" Opacity="0.5" Stretch="UniformToFill"/>
                         </WrapPanel.Background>
+                        <WrapPanel.Triggers>
+                            <EventTrigger RoutedEvent="Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Duration="0:0:30"
+                                                                       Storyboard.TargetName="campusWrapPanel"
+                                                                       Storyboard.TargetProperty="Background"
+                                                                       RepeatBehavior="Forever">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <ImageBrush ImageSource="Images/Campus/BUAA1.png"/>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:30">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <ImageBrush ImageSource="Images/Campus/BUAA2.png"/>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                            <DiscreteObjectKeyFrame KeyTime="0:1:0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <ImageBrush ImageSource="Images/Campus/BUAA3.png"/>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                            <DiscreteObjectKeyFrame KeyTime="0:1:30">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <ImageBrush ImageSource="Images/Campus/BUAA4.png"/>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                            <DiscreteObjectKeyFrame KeyTime="0:2:0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <ImageBrush ImageSource="Images/Campus/BUAA5.png"/>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </WrapPanel.Triggers>
                     </WrapPanel>
                 </ScrollViewer>
-            </TabItem>
-            <TabItem Header="个人" x:Name="personalTabItem">
+            </local:MyTabItem>
+
+            <local:MyTabItem  x:Name="personalTabItem" Width="70" Height="70" Margin="0,20">
+                <local:MyTabItem.MyNormalBrush>
+                    <ImageBrush ImageSource="Images/Personal/normal_p.png"/>
+                </local:MyTabItem.MyNormalBrush>
+                <local:MyTabItem.MyMoverBrush>
+                    <ImageBrush ImageSource="Images/Personal/selected_p.png"/>
+                </local:MyTabItem.MyMoverBrush>
+                <local:MyTabItem.MyEnterBrush>
+                    <ImageBrush ImageSource="Images/Personal/hover_p.png"/>
+                </local:MyTabItem.MyEnterBrush>
                 <ScrollViewer>
                     <WrapPanel x:Name="personalWrapPanel">
                         <WrapPanel.Background>
                             <ImageBrush ImageSource="Images/Personal/personal1.jpg" Opacity="1.0" Stretch="UniformToFill"/>
                         </WrapPanel.Background>
+                        <WrapPanel.Triggers>
+                            <EventTrigger RoutedEvent="Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Duration="0:0:30"
+                                                                       Storyboard.TargetName="personalWrapPanel"
+                                                                       Storyboard.TargetProperty="Background"
+                                                                       RepeatBehavior="Forever">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <ImageBrush ImageSource="Images/Personal/personal1.jpg"/>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:30">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <ImageBrush ImageSource="Images/Personal/personal2.jpeg"/>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                            <DiscreteObjectKeyFrame KeyTime="0:01:0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <ImageBrush ImageSource="Images/Personal/personal3.jpeg"/>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                            <DiscreteObjectKeyFrame KeyTime="0:01:30">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <ImageBrush ImageSource="Images/Personal/personal4.jpg"/>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                            <DiscreteObjectKeyFrame KeyTime="0:02:0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <ImageBrush ImageSource="Images/Personal/personal5.jpg"/>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </WrapPanel.Triggers>
                     </WrapPanel>
                 </ScrollViewer>
-            </TabItem>
-        </TabControl>
-        
-
-        <Grid Grid.Row="3" Background="{StaticResource BackgroundBrush2}">
-            <!--Fourth row of main window, including some buttons-->
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <StackPanel Orientation="Horizontal" Grid.Column="0">
-                <Button Name="addAlbumButton" Style="{StaticResource AnimationButton}" Background="#ff4ecd00"
-                        Margin="30,0,50,0" Content="添加相册" Click="addAlbumButton_Click"/>
-                <Button Name="deleteAlbumButton" Style="{StaticResource AnimationButton}" Background="#ff4ecd00"
-                        Margin="10" Content="删除相册"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
-                <Button Name="importPictureButton" Style="{StaticResource AnimationButton}" Background="Blue" 
-                        Margin="10,0,50,0" Content="导入照片" Click="importPictureButton_Click"/>
-                <Button Name="enterAlbumButton" Style="{StaticResource AnimationButton}" Background="Blue" 
-                        Margin="10,0,30,0" Content="进入相册" Click="enterAlbumButton_Click"/>
-            </StackPanel>
-        </Grid>
+            </local:MyTabItem>
+            
+        </local:MyTabControl>     
     </Grid>
 </Window>

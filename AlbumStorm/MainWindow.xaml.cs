@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using AlbumStorm.Classes;
+using AlbumStorm.MyControls;
 using AlbumStorm.Dialogs;
 using Microsoft.Win32;
 using System.IO;
@@ -29,8 +29,7 @@ namespace AlbumStorm
         private List<AlbumUserControl> travelAlbumSets;
         private List<AlbumUserControl> sceneAlbumSets;
         private List<AlbumUserControl> campusAlbumSets;
-        private List<AlbumUserControl> personalAlbumSets;
-        #endregion
+        private List<AlbumUserControl> personalAlbumSets;    
         private PictureViewer pictureViewer;
 
         public MainWindow()
@@ -42,6 +41,11 @@ namespace AlbumStorm
             sceneAlbumSets = new List<AlbumUserControl>();
             campusAlbumSets = new List<AlbumUserControl>();
             personalAlbumSets = new List<AlbumUserControl>();
+
+            pictureViewer = new PictureViewer();
+            Grid.SetRow(pictureViewer, 2);
+            mainGrid.Children.Add(pictureViewer);
+            pictureViewer.Visibility = Visibility.Hidden;
 
             LoadAlbumSets();
         }
@@ -69,22 +73,21 @@ namespace AlbumStorm
             AddAlbumSets(campusAlbumSets, campusWrapPanel);
             AddAlbumSets(personalAlbumSets, personalWrapPanel);
         }
-
+        #endregion
 
         private void AddAlbumSets(List<AlbumUserControl> albumSets,WrapPanel wrapPanel)
         {
-            //先获取albumSets存储数据对应路径下的文件
+            //Getting fileNames in the directory which storage the paths of pictures
             string[] fileNames = GetFileNames(albumSets);
-            //对应路径下不存在文件，说明未创建相册集
+            //There is no files in the directory
             if(fileNames.Count()==0)
             {
                 return;
             }
 
-            //生成相册
+            //Creating AlbumSet
             foreach(string s in fileNames)
             {
-                //CreateAlbumSets(albumSets, wrapPanel, s);
                 AlbumUserControl albumSet = CreateAlbumSet(wrapPanel, s);
                 #region
                 if (albumSets.Equals(familyAlbumSets))
@@ -149,6 +152,7 @@ namespace AlbumStorm
                 UpdateAlbumSets(albumSets, wrapPanel);
             }
         }
+
 
         private string[] GetFileNames(List<AlbumUserControl> albumsets)
         {
@@ -227,7 +231,7 @@ namespace AlbumStorm
             }
         }
 
-
+        #region
         private string GetSelectedTabItem()
         {
             if (familyTabItem.IsSelected)
@@ -277,13 +281,9 @@ namespace AlbumStorm
                 switch (selectedTabItemName)
                 {
                     case "familyTabItem": CreateAlbumSets(familyAlbumSets, (WrapPanel)this.FindName("familyWrapPanel"), name); break;
-
                     case "travelTabItem": CreateAlbumSets(travelAlbumSets, (WrapPanel)this.FindName("travelWrapPanel"), name); break;
-
                     case "sceneTabItem": CreateAlbumSets(sceneAlbumSets, (WrapPanel)this.FindName("sceneWrapPanel"), name); break;
-
                     case "campusTabItem": CreateAlbumSets(campusAlbumSets, (WrapPanel)this.FindName("campusWrapPanel"), name); break;
-
                     case "personalTabItem": CreateAlbumSets(personalAlbumSets, (WrapPanel)this.FindName("personalWrapPanel"), name); break;
                 }
             }
@@ -295,7 +295,6 @@ namespace AlbumStorm
             AlbumUserControl albumUserControl = CreateAlbumSet(wrapPanel, name);
 
             albumSets.Add(albumUserControl);
-
             //Every time adding an AlbumSets, updating AlbumSets is needed
             UpdateAlbumSets(albumSets,wrapPanel);
         }
@@ -311,7 +310,6 @@ namespace AlbumStorm
 
             AlbumUserControl albumUserControl = new AlbumUserControl();
 
-            /*Here has a bug*/
             albumUserControl.Name = albumSet.AlbumSetName;
             albumUserControl.Content = albumSet;
             albumUserControl.ContentTemplate = (DataTemplate)FindResource("AlbumSetDataTemplate");
@@ -324,7 +322,6 @@ namespace AlbumStorm
                 case "campusTabItem": albumUserControl.BelongsTo = "campusAlbumSets"; break;
                 case "personalTabItem": albumUserControl.BelongsTo = "personalAlbumSets"; break;
             }
-
             //AlbumSet's event handlers
             albumUserControl.MouseDown += albumUserControl_MouseDown;
             albumUserControl.MouseDoubleClick += albumUserControl_MouseDoubleClick;
@@ -336,11 +333,28 @@ namespace AlbumStorm
         private void albumUserControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             this.albumUserControl_MouseDown(sender,e);
+            
 
-            this.enterAlbumButton_Click(sender, e);
+            this.AlbumTabControl.Visibility = Visibility.Hidden;
+            this.backButton.IsEnabled = true;
+
+            string selectedTabItem = GetSelectedTabItem();
+            switch (selectedTabItem)
+            {
+                case "familyTabItem": ShowPictures((AlbumUserControl)sender); break;
+                case "travelTabItem": ShowPictures((AlbumUserControl)sender); break;
+                case "sceneTabItem": ShowPictures((AlbumUserControl)sender); break;
+                case "campusTabItem": ShowPictures((AlbumUserControl)sender); break;
+                case "personalTabItem": ShowPictures((AlbumUserControl)sender); break;
+            }
+
+            pictureViewer.Visibility = Visibility.Visible;
+
+            this.importPictureButton.IsEnabled = false;
+            this.enterAlbumButton.IsEnabled = false;
         }
 
-
+        #endregion
         private void albumUserControl_MouseDown(object sender, MouseButtonEventArgs e)
         {
             AlbumUserControl uc = (AlbumUserControl)sender;
@@ -399,7 +413,7 @@ namespace AlbumStorm
                 string[] filenames = dialog.FileNames;
                 string selectedTabItem = GetSelectedTabItem();             
                 switch(selectedTabItem)
-                {
+                {//Importing selected pictures
                     case "familyTabItem": ImportPictures(familyAlbumSets,familyWrapPanel, filenames); break;
                     case "travelTabItem": ImportPictures(travelAlbumSets,travelWrapPanel, filenames); break;
                     case "sceneTabItem": ImportPictures(sceneAlbumSets,sceneWrapPanel, filenames); break;
@@ -416,25 +430,8 @@ namespace AlbumStorm
             {
                 if(albumSets[i].IsSelected)
                 {                   
-                    AlbumSet aSet = new AlbumSet();
-                    aSet.ImagePath = fileNames[0];//Image path has been set to AlbumSet
-                    aSet.AlbumSetName = albumSets[i].Name;
+                    albumSets[i] = ReferenceNewAlbumSet(albumSets[i], fileNames);
 
-                    //Creating a new AlbumSet,
-                    //for the purpose to add the first picture as the AlbumSet's background
-                    AlbumUserControl userControl = new AlbumUserControl();
-                    userControl.Name = aSet.AlbumSetName;
-                    userControl.Content = aSet;
-                    userControl.ContentTemplate = (DataTemplate)FindResource("AlbumSetDataTemplate");
-                    userControl.IsSelected = true;
-                    userControl.PicturePathList = albumSets[i].PicturePathList;
-                    userControl.BelongsTo = albumSets[i].BelongsTo;
-                    userControl.MouseDown += albumUserControl_MouseDown;
-                    userControl.MouseDoubleClick += albumUserControl_MouseDoubleClick;
-
-                  
-                    albumSets[i] = userControl;//Referencing to the new AlbumSet
-                   
                     foreach (string s in fileNames)
                     {       
                         albumSets[i].PicturePathList.Add(s);
@@ -447,6 +444,7 @@ namespace AlbumStorm
                         foreach (string s in albumSets[i].PicturePathList)
                         {
                             writer.WriteLine(s);
+
                             Image image = new Image();
                             image.Stretch = Stretch.UniformToFill;
                             image.Source = new BitmapImage(new Uri(s, UriKind.Absolute));
@@ -464,12 +462,33 @@ namespace AlbumStorm
         }
 
 
+        private AlbumUserControl ReferenceNewAlbumSet(AlbumUserControl albumSet,string[] fileNames)
+        {
+            AlbumSet aSet = new AlbumSet();
+            aSet.ImagePath = fileNames[0];//Image path has been set to AlbumSet
+            aSet.AlbumSetName = albumSet.Name;
+
+            //Creating a new AlbumSet,
+            //for the purpose to add the first picture as the AlbumSet's background
+            AlbumUserControl userControl = new AlbumUserControl();
+            userControl.Name = aSet.AlbumSetName;
+            userControl.Content = aSet;
+            userControl.ContentTemplate = (DataTemplate)FindResource("AlbumSetDataTemplate");
+            userControl.IsSelected = true;
+            userControl.PicturePathList = albumSet.PicturePathList;
+            userControl.BelongsTo = albumSet.BelongsTo;
+            userControl.MouseDown += albumUserControl_MouseDown;
+            userControl.MouseDoubleClick += albumUserControl_MouseDoubleClick;
+
+            albumSet = userControl;//Referencing to the new AlbumSet
+            return albumSet;
+        }
+
+
         private void enterAlbumButton_Click(object sender, RoutedEventArgs e)
         {
             this.AlbumTabControl.Visibility = Visibility.Hidden;
             this.backButton.IsEnabled = true;
-
-            pictureViewer = new PictureViewer();
 
             string selectedTabItem = GetSelectedTabItem();
             switch(selectedTabItem)
@@ -481,10 +500,9 @@ namespace AlbumStorm
                 case "personalTabItem": ShowPictures(personalAlbumSets); break;
             }
 
-            Grid.SetRow(pictureViewer, 2);
-            mainGrid.Children.Add(pictureViewer);
-
+            pictureViewer.Visibility = Visibility.Visible;
             this.importPictureButton.IsEnabled = false;
+            this.enterAlbumButton.IsEnabled = false;
         }
 
 
@@ -494,15 +512,22 @@ namespace AlbumStorm
             {
                 if(auc.IsSelected)
                 {
-                    WrapPanel wp = (WrapPanel)pictureViewer.FindName("pictureWrapPanel");
-                    foreach(Image i in auc.PictureList)
-                    {
-                        Picture p = new Picture(i);
-                        
-                        wp.Children.Add(p);
-                    }
+                    ShowPictures(auc);
                     break;
                 }
+            }
+        }
+
+
+        private void ShowPictures(AlbumUserControl userControl)
+        {
+            pictureViewer.pictureWrapPanel.Children.Clear();
+
+            WrapPanel wp = pictureViewer.pictureWrapPanel;
+            foreach(Image i in userControl.PictureList)
+            {
+                Picture p = new Picture(i);
+                wp.Children.Add(p);
             }
         }
 
@@ -513,6 +538,17 @@ namespace AlbumStorm
             this.importPictureButton.IsEnabled = true;
             pictureViewer.Visibility = Visibility.Hidden;
             this.backButton.IsEnabled = false;
+            this.enterAlbumButton.IsEnabled = true;
+        }
+
+        private void closeButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void minButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = System.Windows.WindowState.Minimized;
         }
     }
 }

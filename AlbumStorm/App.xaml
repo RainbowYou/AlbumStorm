@@ -5,12 +5,15 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/AlbumStorm;component/Resources/Styles/ButtonStyle.xaml"/>
-                <ResourceDictionary Source="/AlbumStorm;component/Resources/Styles/Vista.xaml"/>
-                <ResourceDictionary Source="/AlbumStorm;component/Resources/Styles/ButtonStyle2.xaml"/>
+                <ResourceDictionary Source="/AlbumStorm;component/Resources/Styles/ButtonStyle.xaml"/>               
                 <ResourceDictionary Source="/AlbumStorm;component/Resources/Styles/BackgroundResource.xaml"/>
-                <ResourceDictionary Source="/AlbumStorm;component/Resources/Styles/TabRes.xaml"/>
                 <ResourceDictionary Source="/AlbumStorm;component/Resources/Datas/AlbumSetDataTemplate.xaml"/>
+                <ResourceDictionary Source="/AlbumStorm;component/MyControls/MyTabControl.xaml"/>
+                <ResourceDictionary Source="/AlbumStorm;component/MyControls/MyTabItem.xaml"/>
+                <ResourceDictionary Source="/AlbumStorm;component/Resources/Styles/ScrollBarThumbStyle.xaml"/>
+                <ResourceDictionary Source="/AlbumStorm;component/Resources/Styles/ScrollBarStyle.xaml"/>
+                <ResourceDictionary Source="/AlbumStorm;component/Resources/Styles/ScrollViewerStyle.xaml"/>
+                <ResourceDictionary Source="/AlbumStorm;component/MyControls/ImageButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
